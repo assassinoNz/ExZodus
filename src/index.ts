@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { z } from "zod";
 import { PathParams, RequestHandler } from "express-serve-static-core";
