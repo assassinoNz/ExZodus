@@ -1,12 +1,15 @@
 {
   "name": "@assassinonz/exzodus",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Axios and Express router wrappers with end to end type safety",
-  "main": "./src/index.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
+    "publish": "npm run build && npm publish && rm -r ./build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "rm -r ./build; tsc"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/assassinoNz/ExZodus.git"

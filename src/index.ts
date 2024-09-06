@@ -5,7 +5,7 @@ import { PathParams, RequestHandler } from "express-serve-static-core";
 import { METHODS } from "./type.js";
 import type { Api, ResponseCode, ConfigParam, DefaultResponseBody, Method, MethodByPath, Path, PathByMethod, ResponseBody, TypedRouter } from "./type.js";
 
-export { express, z };
+export { express, z }
 
 /**
  * Api aware type-safe wrapper around express.Router() with server-side request and response validation
