@@ -1,6 +1,6 @@
 {
   "name": "@assassinonz/exzodus",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Axios and Express router wrappers with end to end type safety",
   "main": "./src/index.ts",
   "scripts": {
