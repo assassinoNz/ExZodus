@@ -6,6 +6,9 @@
         "router"
     ],
     "scripts": {
-        "build": "npm run build --workspace=client --workspace=router"
+        "build:client": "npm run build --workspace=client",
+        "build:router": "npm run build --workspace=router",
+        "publish:client": "npm run build:client && npm publish --access=public --workspace=client",
+        "publish:router": "npm run build:router && npm publish --access=public --workspace=router"
     }
 }

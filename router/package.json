@@ -1,6 +1,6 @@
 {
   "name": "@assassinonz/exzodus-router",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Express router wrapper with end to end type safety",
   "main": "./build/router/index.js",
   "types": "./build/router/index.d.ts",
@@ -15,7 +15,7 @@
   },
   "files": [
     "./build",
-    "../README.md"
+    "./README.md"
   ],
   "keywords": [
     "zod",

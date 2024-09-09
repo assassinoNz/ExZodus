@@ -1,6 +1,6 @@
 {
   "name": "@assassinonz/exzodus-client",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Axios wrapper with end to end type safety",
   "main": "./build/client/index.js",
   "types": "./build/client/index.d.ts",
@@ -15,7 +15,7 @@
   },
   "files": [
     "./build",
-    "../README.md"
+    "./README.md"
   ],
   "keywords": [
     "zod",
