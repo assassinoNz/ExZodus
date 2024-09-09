@@ -1,0 +1,41 @@
+{
+  "name": "@assassinonz/exzodus-router",
+  "version": "0.0.7",
+  "description": "Express router wrapper with end to end type safety",
+  "main": "./build/router/index.js",
+  "types": "./build/router/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "rm -r ./build; tsc"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/assassinoNz/ExZodus.git"
+  },
+  "files": [
+    "./build",
+    "../README.md"
+  ],
+  "keywords": [
+    "zod",
+    "axios",
+    "express",
+    "zodios",
+    "kubb",
+    "swagger-zod"
+  ],
+  "author": "assassinoNz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/assassinoNz/ExZodus/issues"
+  },
+  "homepage": "https://github.com/assassinoNz/ExZodus#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "typescript": "^5.5.4"
+  }
+}

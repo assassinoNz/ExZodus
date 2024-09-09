@@ -1,0 +1,40 @@
+{
+  "name": "@assassinonz/exzodus-client",
+  "version": "0.0.7",
+  "description": "Axios wrapper with end to end type safety",
+  "main": "./build/client/index.js",
+  "types": "./build/client/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "rm -r ./build; tsc"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/assassinoNz/ExZodus-Client.git"
+  },
+  "files": [
+    "./build",
+    "../README.md"
+  ],
+  "keywords": [
+    "zod",
+    "axios",
+    "express",
+    "zodios",
+    "kubb",
+    "swagger-zod"
+  ],
+  "author": "assassinoNz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/assassinoNz/ExZodus/issues"
+  },
+  "homepage": "https://github.com/assassinoNz/ExZodus#readme",
+  "dependencies": {
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

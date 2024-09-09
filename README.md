@@ -70,7 +70,7 @@ export const paths = {
 
 ```typescript
 import { paths } from "../../kubb/zod/operations.js";
-import { express, ExZodusRouter } from "@assassinonz/exzodus";
+import { express, ExZodusRouter } from "@assassinonz/exzodus-router";
 
 
 //             @kubb/swagger-zod generated API schema
@@ -119,7 +119,7 @@ Calling this API is now easy and has builtin autocomplete features :
   
 ```typescript
 import { paths } from "../../kubb/zod/operations.js";
-import { ExZodusClient } from "@assassinonz/exzodus";
+import { ExZodusClient } from "@assassinonz/exzodus-client";
 
 
 //                    @kubb/swagger-zod generated API schema
