@@ -1,6 +1,6 @@
 {
   "name": "@assassinonz/exzodus-client",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Axios wrapper with end to end type safety",
   "main": "./build/client/index.js",
   "types": "./build/client/index.d.ts",
@@ -32,7 +32,8 @@
   },
   "homepage": "https://github.com/assassinoNz/ExZodus#readme",
   "dependencies": {
-    "axios": "^1.7.7"
+    "axios": "^1.7.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "typescript": "^5.5.4"
