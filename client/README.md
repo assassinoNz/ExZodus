@@ -129,8 +129,8 @@ const client = new ExZodusClient<typeof paths>("http://localhost:8080/api/v1");
 
 //   typed                auto-complete path   auto-complete params
 //     ▼                           ▼                   ▼
-const user = await client.get("/users/:id", { path: { id: 7 } });
-console.log(user);
+const userResponse = await client.get("/users/:id", { path: { id: 7 } });
+console.log(userResponse.data);
 ```
 
 ### 5. Output
