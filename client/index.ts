@@ -15,31 +15,31 @@ export class ExZodusClient<A extends Api> {
     async get<P extends PathByMethod<A, "get">>(path: P, ...[config]: ConfigParam<A, "get", P>) {
         const axiosConfig = ExZodusClient.buildAxiosConfig("get", path, config);
         const res = await this.axios.request<DefaultResponseBody<A, "get", P>>(axiosConfig);
-        return res.data;
+        return res;
     }
 
     async post<P extends PathByMethod<A, "post">>(path: P, ...[config]: ConfigParam<A, "post", P>) {
         const axiosConfig = ExZodusClient.buildAxiosConfig("post", path, config);
         const res = await this.axios.request<DefaultResponseBody<A, "post", P>>(axiosConfig);
-        return res.data;
+        return res;
     }
 
     async put<P extends PathByMethod<A, "put">>(path: P, ...[config]: ConfigParam<A, "put", P>) {
         const axiosConfig = ExZodusClient.buildAxiosConfig("put", path, config);
         const res = await this.axios.request<DefaultResponseBody<A, "put", P>>(axiosConfig);
-        return res.data;
+        return res;
     }
 
     async patch<P extends PathByMethod<A, "patch">>(path: P, ...[config]: ConfigParam<A, "patch", P>) {
         const axiosConfig = ExZodusClient.buildAxiosConfig("patch", path, config);
         const res = await this.axios.request<DefaultResponseBody<A, "patch", P>>(axiosConfig);
-        return res.data;
+        return res;
     }
 
     async delete<P extends PathByMethod<A, "delete">>(path: P, ...[config]: ConfigParam<A, "delete", P>) {
         const axiosConfig = ExZodusClient.buildAxiosConfig("delete", path, config);
         const res = await this.axios.request<DefaultResponseBody<A, "delete", P>>(axiosConfig);
-        return res.data;
+        return res;
     }
 
     isErrorOf<M extends MethodByPath<A, P>, P extends Path<A>, C extends ResponseCode<A, M, P>>(err: unknown, method: M, path: P, code: C): err is AxiosError<ResponseBody<A, M, P, C>> & { response: { data: ResponseBody<A, M, P, C> } } {

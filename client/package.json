@@ -1,6 +1,6 @@
 {
   "name": "@assassinonz/exzodus-client",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Axios wrapper with end to end type safety",
   "main": "./build/client/index.js",
   "types": "./build/client/index.d.ts",
