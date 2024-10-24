@@ -3,9 +3,8 @@ import { z } from "zod";
 import { PathParams, RequestHandler } from "express-serve-static-core";
 import { METHODS } from "../core/index.js";
 import type { Api, Path } from "../core/index.js";
-import type { TypedRouter } from "../core/router.js";
-
-export { express }
+import type { TypedRouter, RequestHandlerWithContext } from "../core/router.js";
+export { express, z, RequestHandlerWithContext };
 
 /**
  * Api aware type-safe wrapper around express.Router() with server-side request and response validation
@@ -13,10 +12,10 @@ export { express }
 export class ExZodusRouter {
     //WARNING: Make constructor private 
     private constructor() {
-        //Since this cannot be used by anyone, do nothing
+        //Since the constructor cannot be used by anyone, do nothing
     }
 
-    static new<A extends Api>(apiDef: A, config: {
+    static new<A extends Api, Context>(apiDef: A, config: {
         attachResponseValidator: boolean;
         errorHandler: (err: unknown, req: express.Request, res: express.Response) => void;
     }) {
@@ -38,7 +37,7 @@ export class ExZodusRouter {
                 }
 
                 //Define the function to be used as the request validation middleware
-                const requestValidator: RequestHandler = (req, res, next) => {
+                const requestValidator: RequestHandler = (req: express.Request, res, next) => {
                     try {
                         if (routeDescription?.parameters?.path) {
                             //CASE: Has path params to validate
@@ -112,6 +111,6 @@ export class ExZodusRouter {
             };
         }
 
-        return router as unknown as TypedRouter<A>;
+        return router as unknown as TypedRouter<A, Context>;
     }
 }

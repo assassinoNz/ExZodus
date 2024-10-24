@@ -10,5 +10,8 @@
         "build:router": "npm run build --workspace=router",
         "publish:client": "npm run build:client && npm publish --access=public --workspace=client",
         "publish:router": "npm run build:router && npm publish --access=public --workspace=router"
+    },
+    "devDependencies": {
+        "typescript": "^5.6.3"
     }
 }

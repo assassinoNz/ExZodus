@@ -1,15 +1,17 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
+import * as axios from "axios";
 import type { Api, ResponseCode, MethodByPath, Path, PathByMethod, ResponseBody, DefaultResponseBody, Method } from "../core/index.js";
 import type { ConfigParam } from "../core/client.js";
+
+export { axios };
 
 /**
  * Api aware type-safe wrapper around Axios
  */
 export class ExZodusClient<A extends Api> {
-    public readonly axios: AxiosInstance;
+    public readonly axios: axios.AxiosInstance;
 
-    constructor(baseURL: string) {
-        this.axios = axios.create({ baseURL });
+    constructor(_apiDef: A, baseURL: string) {
+        this.axios = axios.default.create({ baseURL });
     }
 
     async get<P extends PathByMethod<A, "get">>(path: P, ...[config]: ConfigParam<A, "get", P>) {
@@ -42,12 +44,12 @@ export class ExZodusClient<A extends Api> {
         return res;
     }
 
-    isErrorOf<M extends MethodByPath<A, P>, P extends Path<A>, C extends ResponseCode<A, M, P>>(err: unknown, method: M, path: P, code: C): err is AxiosError<ResponseBody<A, M, P, C>> & { response: { data: ResponseBody<A, M, P, C> } } {
-        if (!(err instanceof AxiosError)) {
+    isErrorOf<M extends MethodByPath<A, P>, P extends Path<A>, C extends ResponseCode<A, M, P>>(err: unknown, method: M, path: P, code: C): err is axios.AxiosError<ResponseBody<A, M, P, C>> & { response: { data: ResponseBody<A, M, P, C> } } {
+        if (!(err instanceof axios.AxiosError)) {
             return false;
         }
 
-        const axiosErr = err as AxiosError<ResponseBody<A, M, P, C>>;
+        const axiosErr = err as axios.AxiosError<ResponseBody<A, M, P, C>>;
 
         if (axiosErr.config?.method !== method) {
             return false;
@@ -79,7 +81,7 @@ export class ExZodusClient<A extends Api> {
             return {
                 method,
                 url: path
-            } satisfies AxiosRequestConfig;
+            } satisfies axios.AxiosRequestConfig;
         }
 
         //CASE: Config provided
@@ -90,6 +92,6 @@ export class ExZodusClient<A extends Api> {
             params: config["query"],
             data: config["body"],
             responseType: config["responseType"]
-        } satisfies AxiosRequestConfig;
+        } satisfies axios.AxiosRequestConfig;
     }
 }

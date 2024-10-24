@@ -10,7 +10,7 @@ declare module "express-serve-static-core" {
         Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
     > {
         // eslint-disable-next-line @typescript-eslint/prefer-function-type
-        (path: PathParams, ...handlers: (RequestHandlerParams | TypedRouter<never>)[]): T;
+        (path: PathParams, ...handlers: (RequestHandlerParams | TypedRouter<never, unknown>)[]): T;
     }
 }
 
@@ -32,13 +32,13 @@ type ValidatorParsedEndpointInputs<A extends Api, M extends MethodByPath<A, P>, 
 /**
  * Type-safe version of the express.RequestHandler aware of the types involved in the given endpoint
  */
-type TypedRequestHandler<A extends Api, M extends MethodByPath<A, P>, P extends Path<A>> = (
+type TypedRequestHandler<A extends Api, M extends MethodByPath<A, P>, P extends Path<A>, Context> = (
     req: ValidatorParsedEndpointInputs<A, M, P> extends { path: infer ReqP; body: infer ReqB; query: infer ReqQ } ? express.Request<
         ReqP,
         unknown,
         ReqB,
         ReqQ
-    > : express.Request<never, never, never, never>,
+    > & { ctx?: Context } : express.Request<never, never, never, never> & { ctx?: Context },
 
     res: Omit<express.Response, "status"> & { status: <C extends ResponseCode<A, M, P>>(code: C) => express.Response<ResponseBody<A, M, P, C>> },
 
@@ -46,13 +46,18 @@ type TypedRequestHandler<A extends Api, M extends MethodByPath<A, P>, P extends 
 ) => void;
 
 /**
+ * Context-aware version of the express.RequestHandler
+ */
+export type RequestHandlerWithContext<Context> = (req: express.Request & { ctx?: Context }, res: express.Response, next: express.NextFunction) => void;
+
+/**
  * Type-safe version of the express.Router aware of the types in the given Api
  */
-export interface TypedRouter<A extends Api> {
-    get: <P extends PathByMethod<A, "get">>(path: P, ...handlers: TypedRequestHandler<A, "get", P>[]) => this;
-    post: <P extends PathByMethod<A, "post">>(path: P, ...handlers: TypedRequestHandler<A, "post", P>[]) => this;
-    put: <P extends PathByMethod<A, "put">>(path: P, ...handlers: TypedRequestHandler<A, "put", P>[]) => this;
-    patch: <P extends PathByMethod<A, "patch">>(path: P, ...handlers: TypedRequestHandler<A, "patch", P>[]) => this;
-    delete: <P extends PathByMethod<A, "delete">>(path: P, ...handlers: TypedRequestHandler<A, "delete", P>[]) => this;
-    use: (path: string, ...handlers: express.RequestHandler[]) => this;
+export interface TypedRouter<A extends Api, Context> {
+    get: <P extends PathByMethod<A, "get">>(path: P, ...handlers: TypedRequestHandler<A, "get", P, Context>[]) => this;
+    post: <P extends PathByMethod<A, "post">>(path: P, ...handlers: TypedRequestHandler<A, "post", P, Context>[]) => this;
+    put: <P extends PathByMethod<A, "put">>(path: P, ...handlers: TypedRequestHandler<A, "put", P, Context>[]) => this;
+    patch: <P extends PathByMethod<A, "patch">>(path: P, ...handlers: TypedRequestHandler<A, "patch", P, Context>[]) => this;
+    delete: <P extends PathByMethod<A, "delete">>(path: P, ...handlers: TypedRequestHandler<A, "delete", P, Context>[]) => this;
+    use: (path: string, ...handlers: RequestHandlerWithContext<never>[]) => this;
 }
