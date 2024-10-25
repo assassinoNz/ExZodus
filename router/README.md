@@ -12,7 +12,7 @@ The existence of this project is due to following factors.
 ## Can this replace Zodios?
 Absolutely not.
 
-- If your workflow didn't encounter above mentioned problems, you should a definitely use Zodios. It is well documented and established.
+- If your workflow didn't encounter above mentioned problems, you should definitely use Zodios. It is well documented and established.
 
 - Zodios has many more features that won't be included in the scope of this project.
 
@@ -72,10 +72,14 @@ export const paths = {
 import { paths } from "../../kubb/zod/operations.js";
 import { express, ExZodusRouter } from "@assassinonz/exzodus-router";
 
+//Define context if needed
+type Context = {
+    userId: number;
+}
 
-//             @kubb/swagger-zod generated API schema
-//                                 ▼
-const router = ExZodusRouter.new(paths, {
+//                    @kubb/swagger-zod generated API schema
+//                                        ▼
+const router = ExZodusRouter.new<typeof paths, Context>(paths, {
     //Provide error handler for Zod errors
     errorHandler: (err, req, res) => {
         //TODO: Handle errors
@@ -89,24 +93,25 @@ const router = ExZodusRouter.new(paths, {
 //  auto-complete path  fully typed and validated input params (body, query, params)
 //             ▼           ▼    ▼
 router.get("/users/:id", (req, res) => {
-    const user = findUserById(req.params.id);
-
-    if (!user) {
+    if (req.ctx === undefined) {
         //Allows only documented response codes
         //Response is typed from the body of 404 response
         //                 ▼
         return res.status(404).json({
-            message: "User not found"
+            message: "Please login first"
+        });
+    } else {
+        const user = findUserById(req.ctx.userId);
+
+        //Response is typed from the body of 200 response
+        //                 ▼
+        return res.status(200).json({
+            id: user.id,
+            name: user.name,
+            password: user.password
         });
     }
 
-    //Response is typed from the body of 200 response
-    //                 ▼
-    return res.status(200).json({
-        id: user.id,
-        name: user.name,
-        password: user.password
-    });
 });
 
 
@@ -122,9 +127,9 @@ import { paths } from "../../kubb/zod/operations.js";
 import { ExZodusClient } from "@assassinonz/exzodus-client";
 
 
-//                    @kubb/swagger-zod generated API schema
-//                                        ▼
-const client = new ExZodusClient<typeof paths>("http://localhost:8080/api/v1");
+//                @kubb/swagger-zod generated API schema
+//                                 ▼
+const client = new ExZodusClient(paths, "http://localhost:8080/api/v1");
 
 
 //   typed                auto-complete path   auto-complete params

@@ -43,12 +43,12 @@ type TypedRequestHandler<A extends Api, M extends MethodByPath<A, P>, P extends 
     res: Omit<express.Response, "status"> & { status: <C extends ResponseCode<A, M, P>>(code: C) => express.Response<ResponseBody<A, M, P, C>> },
 
     next: express.NextFunction
-) => void;
+) => unknown | Promise<unknown>;
 
 /**
  * Context-aware version of the express.RequestHandler
  */
-export type RequestHandlerWithContext<Context> = (req: express.Request & { ctx?: Context }, res: express.Response, next: express.NextFunction) => void;
+export type RequestHandlerWithContext<Context> = (req: express.Request & { ctx?: Context }, res: express.Response, next: express.NextFunction) => unknown | Promise<unknown>;
 
 /**
  * Type-safe version of the express.Router aware of the types in the given Api
