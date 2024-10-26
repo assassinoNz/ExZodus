@@ -6,9 +6,19 @@ import { z } from "zod";
 export const METHODS = ["get", "post", "put", "delete", "patch"] as const;
 
 /**
+ * Union of all methods supported by the type system
+ */
+export type Method = (typeof METHODS)[number];
+
+/**
  * Type of the apiDefinition
  */
-export type Api = Record<string, Record<string, {
+export type Api = Record<string, { [M in Method]?: RouteDescription }>;
+
+/**
+ * Type of the description of a single route applicable to any method
+ */
+type RouteDescription = {
     request: z.ZodType | undefined;
     parameters: {
         path: z.ZodType | undefined;
@@ -17,13 +27,7 @@ export type Api = Record<string, Record<string, {
     };
     responses: Record<number | "default", z.ZodType>;
     errors: Record<number, z.ZodType>;
-}>>;
-
-/**
- * Union of all methods supported by the type system
- */
-export type Method = (typeof METHODS)[number];
-
+}
 
 /**
  * Union of all the paths defined in the API of the system
