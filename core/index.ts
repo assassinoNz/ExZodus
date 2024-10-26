@@ -27,7 +27,7 @@ type RouteDescription = {
     };
     responses: Record<number | "default", z.ZodType>;
     errors: Record<number, z.ZodType>;
-}
+};
 
 /**
  * Union of all the paths defined in the API of the system
