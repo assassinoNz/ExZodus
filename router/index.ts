@@ -64,12 +64,12 @@ export class ExZodusRouter {
                             req.query = z.object({}).parse(req.query);
                         }
 
-                        if (req.headers["content-type"] === "application/json" && routeDescription?.request) {
+                        if (routeDescription?.request) {
                             //CASE: Has request body to validate
                             req.body = routeDescription.request.parse(req.body);
                         } else {
-                            //CASE: No request body to validate.
-                            //DANGER: Don't modify the body of the request
+                            //CASE: No request body to validate. So body must be an empty object
+                            req.body = z.object({}).parse(req.body);
                         }
 
                         return next();
