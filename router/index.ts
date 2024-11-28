@@ -68,8 +68,9 @@ export class ExZodusRouter {
                             //CASE: Has request body to validate
                             req.body = routeDescription.request.parse(req.body);
                         } else {
-                            //CASE: No request body to validate. So body must be an empty object
-                            req.body = z.object({}).parse(req.body);
+                            //CASE: No request body to validate. So body must be undefined or an empty object
+                            //NOTE: req.body becomes an empty object when using express.json()
+                            req.body = z.object({}).optional().parse(req.body);
                         }
 
                         return next();
