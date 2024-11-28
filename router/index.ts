@@ -16,7 +16,19 @@ export class ExZodusRouter {
     }
 
     static new<A extends Api, Context>(apiDef: A, config: {
+        /**
+         * Attaches a middleware at the end to validate the response body
+         */
         attachResponseValidator: boolean;
+
+        /**
+         * Skips the validation of the request body. Useful for cases where zod cannot validate the request body
+         */
+        skipRequestBodyValidation: boolean;
+
+        /**
+         * A function capable of handling ZodError and possibly other unexpected errors
+         */
         errorHandler: (err: unknown, req: express.Request, res: express.Response) => void;
     }) {
         const router = express.Router();
@@ -64,13 +76,16 @@ export class ExZodusRouter {
                             req.query = z.object({}).parse(req.query);
                         }
 
-                        if (routeDescription?.request) {
-                            //CASE: Has request body to validate
-                            req.body = routeDescription.request.parse(req.body);
-                        } else {
-                            //CASE: No request body to validate. So body must be undefined or an empty object
-                            //NOTE: req.body becomes an empty object when using express.json()
-                            req.body = z.object({}).optional().parse(req.body);
+                        if (!config.skipRequestBodyValidation) {
+                            //CASE: Request body validation enabled
+                            if (routeDescription?.request) {
+                                //CASE: Has request body to validate
+                                req.body = routeDescription.request.parse(req.body);
+                            } else {
+                                //CASE: No request body to validate. So body must be undefined or an empty object
+                                //NOTE: req.body becomes an empty object when using express.json()
+                                req.body = z.object({}).optional().parse(req.body);
+                            }
                         }
 
                         return next();
