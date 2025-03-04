@@ -3,8 +3,8 @@ import { z } from "zod";
 import { PathParams, RequestHandler } from "express-serve-static-core";
 import { METHODS } from "../core/index.js";
 import type { Api, Path } from "../core/index.js";
-import type { TypedRouter, RequestHandlerWithContext } from "../core/router.js";
-export { express, z, type RequestHandlerWithContext };
+import type { TypedRouter, RequestHandlerWithExtras, TypedRequestHandler } from "../core/router.js";
+export { express, z, type RequestHandlerWithExtras, type TypedRequestHandler };
 
 /**
  * Api aware type-safe wrapper around express.Router() with server-side request and response validation

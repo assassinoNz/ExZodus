@@ -32,7 +32,7 @@ type ValidatorParsedEndpointInputs<A extends Api, M extends MethodByPath<A, P>, 
 /**
  * Type-safe version of the express.RequestHandler aware of the types involved in the given endpoint
  */
-type TypedRequestHandler<A extends Api, M extends MethodByPath<A, P>, P extends Path<A>, Extras> = (
+export type TypedRequestHandler<A extends Api, M extends MethodByPath<A, P>, P extends Path<A>, Extras> = (
     req: ValidatorParsedEndpointInputs<A, M, P> extends { path: infer ReqP; body: infer ReqB; query: infer ReqQ } ? express.Request<
         ReqP,
         unknown,
