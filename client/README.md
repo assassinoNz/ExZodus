@@ -72,14 +72,16 @@ export const paths = {
 import { paths } from "../../kubb/zod/operations.js";
 import { express, ExZodusRouter } from "@assassinonz/exzodus-router";
 
-//Define context if needed
-type Context = {
-    userId: number;
+//Define extras if modification of request type is needed
+type Extras = {
+    ctx?: {
+        userId: number;
+    }
 }
 
 //                    @kubb/swagger-zod generated API schema
 //                                        ▼
-const router = ExZodusRouter.new<typeof paths, Context>(paths, {
+const router = ExZodusRouter.new<typeof paths, Extras>(paths, {
     //Provide error handler for Zod errors
     errorHandler: (err, req, res) => {
         //TODO: Handle errors

@@ -1,6 +1,6 @@
 {
     "name": "@assassinonz/exzodus-router",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "description": "Express router wrapper with end to end type safety",
     "main": "./build/router/index.js",
     "types": "./build/router/index.d.ts",

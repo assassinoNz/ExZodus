@@ -15,7 +15,7 @@ export class ExZodusRouter {
         //Since the constructor cannot be used by anyone, do nothing
     }
 
-    static new<A extends Api, Context>(apiDef: A, config: {
+    static new<A extends Api, Extras>(apiDef: A, config: {
         /**
          * Attaches a middleware at the end to validate the response body
          */
@@ -127,6 +127,6 @@ export class ExZodusRouter {
             };
         }
 
-        return router as unknown as TypedRouter<A, Context>;
+        return router as unknown as TypedRouter<A, Extras>;
     }
 }
